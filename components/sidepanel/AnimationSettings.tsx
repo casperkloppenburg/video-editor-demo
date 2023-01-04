@@ -11,12 +11,14 @@ interface AnimationSettingsProps {
 export const AnimationSettings: React.FC<AnimationSettingsProps> = (props) => {
   const { animations } = props.activeElement.source;
 
-  const enterAnimation = animations?.find((keyframe: any) => keyframe.time === 'start')?.type ?? 'none';
+  const enterAnimation =
+    animations?.find((keyframe: any) => !keyframe.time || keyframe.time === 'start')?.type ?? 'none';
   const exitAnimation = animations?.find((keyframe: any) => keyframe.time === 'end')?.type ?? 'none';
 
   const setAnimation = async (time: string | number, type: string) => {
     // Remove existing animation from list
-    const newAnimations = animations?.filter((animations: any) => animations.time !== time) ?? [];
+    const newAnimations =
+      animations?.filter((keyframe: any) => !(!keyframe.time && time === 'start') && keyframe.time !== time) ?? [];
 
     if (type !== 'none') {
       const animation: any = { time, type, duration: 3 };

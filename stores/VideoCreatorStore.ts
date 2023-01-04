@@ -201,7 +201,6 @@ class VideoCreatorStore {
           clip: true,
           animations: [
             {
-              time: 'start',
               easing: 'linear',
               type: 'scale',
               fade: false,
